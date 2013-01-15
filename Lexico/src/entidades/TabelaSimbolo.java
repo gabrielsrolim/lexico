@@ -1,22 +1,23 @@
 package entidades;
 
-public class TabelaSimbolo {
-	private Token token;
-	private int linha;
+public class TabelaSimbolo extends Token {
+	private Integer numLinha;
 	
+
 	
-	public Token getToken() {
-		return token;
+	public TabelaSimbolo(Integer numLinha) {
+		super();		
+		this.numLinha = numLinha;		
+		// TODO Auto-generated constructor stub
 	}
-	public void setToken(Token token) {
-		this.token = token;
+
+	public Integer getNumLinha() {
+		return numLinha;
 	}
-	public int getLinha() {
-		return linha;
+	public void setNumLinha(Integer numLinha) {
+		this.numLinha = numLinha;
 	}
-	public void setLinha(int linha) {
-		this.linha = linha;
-	}
+	
 	
 	
 

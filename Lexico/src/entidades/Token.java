@@ -1,19 +1,28 @@
 package entidades;
 
 public class Token {
-	private int tipoToken;
-	private String Token;
-	public int getTipoToken() {
+	private Integer tipoToken;
+	private String token;
+	
+	public Token(Integer tipo, String token) {
+		// TODO Auto-generated constructor stub
+		tipoToken = tipo;
+		this.token = token;
+	}
+	public Token() {
+		// TODO Auto-generated constructor stub
+	}
+	public Integer getTipoToken() {
 		return tipoToken;
 	}
-	public void setTipoToken(int tipoToken) {
+	public void setTipoToken(Integer tipoToken) {
 		this.tipoToken = tipoToken;
 	}
 	public String getToken() {
-		return Token;
+		return this.token;
 	}
 	public void setToken(String token) {
-		Token = token;
+		this.token = token;
 	}
 	
 	
