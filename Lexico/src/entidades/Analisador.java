@@ -22,6 +22,7 @@ public class Analisador implements Simbolos {
 	
 
 	public void executa() throws Exception {
+		int linhaAberturaComentario = 0;
 		tabela = new ArrayList<TabelaSimbolo>();
 		tabelaToken  = InicializaTabelaToken();
 		bufArq = new StringBuffer();
@@ -78,10 +79,11 @@ public class Analisador implements Simbolos {
 					System.err.println("SIMBOLO: "+ch+ " NÃO PERTENCENTE A LINGUAGEM");
 				}
 				if(ch == '{'){
+					linhaAberturaComentario = linha;
 					ch = bufArq.charAt(indiceProxSimbolo);
-					
 					while (true){
 						try{
+							
 							//O indice Ja é incrementado por efeito colateral.
 							ch = bufArq.charAt(indiceProxSimbolo++);
 							ret = CaracterNaoPrint(ch);
@@ -104,14 +106,19 @@ public class Analisador implements Simbolos {
 							}
 							ExibiErroSimbolo(ch);
 							//debug
-							//System.out.print(ch);
+							//System.out.println(ch);
 							
 							if(ch == '}'){
 							   break; //While(true)	
+							}else if(ch == '{'){
+								//Achou outra abertura de comentario e não fechou a anterior.
+								System.err.println("ERRO: Comentario aberto e não fechado na linha "+ linhaAberturaComentario);
+								break;
 							}
 						}catch (IndexOutOfBoundsException e) {
 							//Se terminar o arquivo e não encontrar um fecha comentario. Exibir erro.
-							System.err.println("ERRO: Comentario aberto e não fechado");
+							System.err.println("ERRO: Comentario aberto e não fechado na linha "+ linhaAberturaComentario);
+							break;
 						}
 					}//WHILE	
 				}else if(ch == ';'){
