@@ -4,9 +4,13 @@ public class TabelaSimbolo extends Token {
 	private Integer numLinha;
 	
 
+	public TabelaSimbolo(){
+		super();
+		this.numLinha = 0;
+	}
 	
-	public TabelaSimbolo(Integer numLinha) {
-		super();		
+	public TabelaSimbolo(Integer tipo, String token,Integer numLinha) {
+		super(tipo,token);		
 		this.numLinha = numLinha;		
 		// TODO Auto-generated constructor stub
 	}
