@@ -66,13 +66,17 @@ public class Analisador implements Simbolos {
 					case 3:
 						//NEW LINE
 						linha++;
-						System.out.println("LINHA: "+linha);
+						//DEBUG
+						//System.out.println("LINHA: "+linha);
 						continue;
 					default:
 						break;
 				}
 				//debug
 				//System.out.println("AQUI:" + ch);
+				if(!Character.isLetter(ch) && !Character.isDigit(ch) && !Character.isISOControl(ch) && ch != '_' && getTokenPalavraReservada(""+ch) == null){
+					System.err.println("SIMBOLO: "+ch+ " NÃO PERTENCENTE A LINGUAGEM");
+				}
 				if(ch == '{'){
 					ch = bufArq.charAt(indiceProxSimbolo);
 					
@@ -92,13 +96,15 @@ public class Analisador implements Simbolos {
 								case 3:
 									//NEW LINE
 									linha++;
-									System.out.println("LINHA: " + linha);
+									//DEBUG
+									//System.out.println("LINHA: " + linha);
 									continue;
 								default:
 									break;
 							}
-							
-							System.out.print(ch);
+							ExibiErroSimbolo(ch);
+							//debug
+							//System.out.print(ch);
 							
 							if(ch == '}'){
 							   break; //While(true)	
@@ -176,6 +182,7 @@ public class Analisador implements Simbolos {
 					
 					for (;;) {
 						ch = bufArq.charAt(indiceProxSimbolo);
+						//DEBUG
 						//System.out.println("Teste plavra chaves1: "+ch);
 						if (Character.isLetter(ch) || Character.isDigit(ch) || (ch == '_')) {
 							indiceProxSimbolo++;
@@ -185,12 +192,13 @@ public class Analisador implements Simbolos {
 							break;
 						}							
 					}//for
-					
+					//DEBUG
 					//System.out.println("Teste plavra chaves2: "+str);
 					Token tokenAux = getTokenPalavraReservada(str);
 					
 					if (tokenAux != null){
-						System.out.println("Teste plavra chaves2: "+str + " Token: " + tokenAux.getTipoToken() + " " + tokenAux.getToken());
+						//DEBUG
+						//System.out.println("Teste plavra chaves2: "+str + " Token: " + tokenAux.getTipoToken() + " " + tokenAux.getToken());
 						tabela.add(new TabelaSimbolo(tokenAux.getTipoToken(), new String(str),linha));
 					}else{
 						tabela.add(new TabelaSimbolo(IDENTIFICADOR, new String(str),linha));
@@ -222,7 +230,7 @@ public class Analisador implements Simbolos {
 			}catch (IndexOutOfBoundsException e) {
 				// FIM DO BUFFER
 				//DEBUG
-				System.out.println("FIM");
+				//System.out.println("FIM");
 				break;
 			}
 		}
@@ -305,6 +313,7 @@ public class Analisador implements Simbolos {
 	
 	private Token getTokenPalavraReservada(String str) {
 		for (int i = 0; i < tabelaToken.length; i++) {
+			//DEBUG
 			//System.out.println("int "+i+":"+ str + "| == |" +tabelaToken[i].getToken()+"|");
 			if (str.equalsIgnoreCase(tabelaToken[i].getToken())) {
 				return tabelaToken[i];
@@ -327,6 +336,13 @@ public class Analisador implements Simbolos {
 
 	public Token[] getTabelaToken() {
 		return tabelaToken;
+	}
+	
+	public void ExibiErroSimbolo(char ch){
+		if(!Character.isLetter(ch) && !Character.isDigit(ch) && !Character.isISOControl(ch) && ch != '_' && getTokenPalavraReservada(""+ch) == null && !Character.isWhitespace(ch)){
+			System.err.println("SIMBOLO: "+ch+ " NÃO PERTENCENTE A LINGUAGEM");
+			
+		}
 	}
 
 }

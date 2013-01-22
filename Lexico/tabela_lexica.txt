@@ -1,0 +1,51 @@
+TOKEN           CLASSIFICAÇÃO         	    LINHA
+--------------------------------------------------
+program		Palavras reservada	1
+Test3		Identificador	1
+;		Delimitador	1
+var		Palavras reservada	2
+NUMERO		Identificador	3
+:		Delimitador	3
+integer		Palavras reservada	3
+;		Delimitador	3
+final		Identificador	4
+:		Delimitador	4
+integer		Palavras reservada	4
+;		Delimitador	4
+begin		Palavras reservada	5
+NUMERO		Identificador	6
+:=		Atribuição	6
+3		Inteiro	6
+*		Operador multiplicativo	6
+5		Inteiro	6
++		Operador Aditivo	6
+7		Inteiro	6
+-		Operador Aditivo	6
+9		Inteiro	6
+;		Delimitador	6
+if		Palavras reservada	7
+(		Delimitador	7
+NUMERO		Identificador	7
+>=		Operador Relacional	7
+20		Inteiro	7
+)		Delimitador	7
+and		Operador multiplicativo	7
+(		Delimitador	7
+NUMERO		Identificador	7
+<=		Operador Relacional	7
+90		Inteiro	7
+)		Delimitador	7
+then		Palavras reservada	7
+NUMERO		Identificador	8
+:=		Atribuição	8
+10		Inteiro	8
+/		Operador multiplicativo	8
+3		Inteiro	8
+;		Delimitador	8
+final		Identificador	9
+:=		Atribuição	9
+NUMERO		Identificador	9
++		Operador Aditivo	9
+1		Inteiro	9
+end		Palavras reservada	10
+.		Delimitador	10

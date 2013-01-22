@@ -1,21 +1,33 @@
 package entidades;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Main {
 
 	/**
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
+	@SuppressWarnings("unused")
+	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		Analisador analise = new Analisador("teste.txt");
+		BufferedWriter out = new BufferedWriter(new FileWriter("tabela_lexica.txt"));
 		try {
 			
 			
 			
 			analise.executa();
+			if(out!=null){
+				out.write("TOKEN           CLASSIFICAÇÃO         	    LINHA"+'\n');
+				out.write("--------------------------------------------------"+'\n');
+			}else{
+				System.out.println("TOKEN           CLASSIFICAÇÃO         	    LINHA");
+				System.out.println("--------------------------------------------------");
+			}
 			
-			System.out.println("TOKEN           CLASSIFICAÇÃO         	    LINHA");
-			System.out.println("--------------------------------------------------");
 			for (int i = 0; i < analise.getTabela().size(); i++) {
 				String a = new String(analise.getTabela().get(i).getToken());
 				String b;
@@ -40,8 +52,14 @@ public class Main {
 				}else{
 					b = new String("INDEFINIDO" + analise.getTabela().get(i).getTipoToken());
 				}
-				System.out.println(a + "	" + b + "	" + analise.getTabela().get(i).getNumLinha());
-			}
+				if(out!=null){
+					out.write(a + "		" + b + "	" + analise.getTabela().get(i).getNumLinha()+"\n");
+				}else{
+					System.out.println(a + "		" + b + "	" + analise.getTabela().get(i).getNumLinha());
+				}
+			}//for
+			out.close();
+			
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
