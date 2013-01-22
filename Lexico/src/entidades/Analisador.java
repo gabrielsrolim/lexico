@@ -72,7 +72,7 @@ public class Analisador implements Simbolos {
 						break;
 				}
 				//debug
-				System.out.println("AQUI:" + ch);
+				//System.out.println("AQUI:" + ch);
 				if(ch == '{'){
 					ch = bufArq.charAt(indiceProxSimbolo);
 					
@@ -120,7 +120,27 @@ public class Analisador implements Simbolos {
 						tabela.add(new TabelaSimbolo(DOISPONTOS, ":", linha));
 					}
 				}else if(ch == '='){
-					
+					ch = bufArq.charAt(indiceProxSimbolo - 2);
+					if ((ch != ':') && (ch != '<') && (ch != '>')) {
+						tabela.add(new TabelaSimbolo(IGUAL, "=", linha));
+					}
+				}else if(ch == '<'){
+					ch = bufArq.charAt(indiceProxSimbolo);
+					if ((ch == '=')) {
+						tabela.add(new TabelaSimbolo(MENOR_IGUAL, "<=", linha));
+					}else if(ch == '>'){
+						indiceProxSimbolo++;
+						tabela.add(new TabelaSimbolo(DIFERENTE, "<>", linha));
+					}else{
+						tabela.add(new TabelaSimbolo(MENOR_QUE, "<", linha));
+					}
+				}else if(ch == '>'){
+					ch = bufArq.charAt(indiceProxSimbolo);
+					if ((ch == '=')) {
+						tabela.add(new TabelaSimbolo(MAIOR_IGUAL, ">=", linha));
+					}else{
+						tabela.add(new TabelaSimbolo(MAIOR_QUE, ">", linha));
+					}
 				}else if(ch == ':'){
 					tabela.add(new TabelaSimbolo(DOISPONTOS, ":", linha));
 				}else if(ch == '('){
@@ -129,6 +149,74 @@ public class Analisador implements Simbolos {
 					tabela.add(new TabelaSimbolo(FECHA_PARENTESE, ")", linha));
 				}else if(ch == ','){
 					tabela.add(new TabelaSimbolo(VIRGULA, ",", linha));
+				}else if(ch == '+'){
+					tabela.add(new TabelaSimbolo(ADICAO, "+", linha));
+				}else if(ch == '-'){
+					tabela.add(new TabelaSimbolo(SUBTRACAO, "-", linha));
+				}else if((ch == 'o' || ch == 'O') && (bufArq.charAt(indiceProxSimbolo) == 'r' || bufArq.charAt(indiceProxSimbolo) == 'R')
+						 && (Character.isLetter(bufArq.charAt(indiceProxSimbolo+1)) == false) ){
+					indiceProxSimbolo++;//Faz com que o or não seja lido mais da letra r.
+					tabela.add(new TabelaSimbolo(OPERADOR_OR, "or", linha));
+				}else if(ch =='*'){
+					tabela.add(new TabelaSimbolo(MULTIPLICACAO, "*", linha));
+				}else if(ch =='/'){
+						tabela.add(new TabelaSimbolo(DIVISAO, "/", linha));
+				}else if((ch == 'a'||ch == 'A') && 
+						 (bufArq.charAt(indiceProxSimbolo) == 'n' || bufArq.charAt(indiceProxSimbolo) == 'N') &&
+						 (bufArq.charAt(indiceProxSimbolo+1) == 'd' ||bufArq.charAt(indiceProxSimbolo) == 'D' ) &&
+						 (Character.isLetter(bufArq.charAt(indiceProxSimbolo+2)) == false )){
+					indiceProxSimbolo++;
+					indiceProxSimbolo++;
+					//DEBUG
+					//System.out.println("DEBUG DE TESTE HEHE:" + bufArq.charAt(indiceProxSimbolo));
+					tabela.add(new TabelaSimbolo(OPERADOR_AND, "and", linha));
+				//Palavras Chaves	
+				}else if(Character.isLetter(ch)){
+					String str = ""+ch;
+					
+					for (;;) {
+						ch = bufArq.charAt(indiceProxSimbolo);
+						//System.out.println("Teste plavra chaves1: "+ch);
+						if (Character.isLetter(ch) || Character.isDigit(ch) || (ch == '_')) {
+							indiceProxSimbolo++;
+							str += ch;
+						}
+						else {
+							break;
+						}							
+					}//for
+					
+					//System.out.println("Teste plavra chaves2: "+str);
+					Token tokenAux = getTokenPalavraReservada(str);
+					
+					if (tokenAux != null){
+						System.out.println("Teste plavra chaves2: "+str + " Token: " + tokenAux.getTipoToken() + " " + tokenAux.getToken());
+						tabela.add(new TabelaSimbolo(tokenAux.getTipoToken(), new String(str),linha));
+					}else{
+						tabela.add(new TabelaSimbolo(IDENTIFICADOR, new String(str),linha));
+					}
+				}else if(Character.isDigit(ch)){
+					String str = ""+ch;
+					for (;;) {
+						ch = bufArq.charAt(indiceProxSimbolo);
+						if (Character.isDigit(ch)) {
+							indiceProxSimbolo++;
+							str += ch;
+						}
+						else if ((ch == '.') && (str.contains(".") == false)) {
+							indiceProxSimbolo++;
+							str += ch;
+						}else{
+							break;
+						}
+					}//for
+					if (str.contains(".")) {
+						tabela.add(new TabelaSimbolo(NUMEROREAL, new String(str),linha));
+					}else{
+						tabela.add(new TabelaSimbolo(NUMEROINTEIRO, new String(str),linha));
+					}
+				}else{
+					//tabela.add(new TabelaSimbolo(ERRO, "ERRO", linha));
 				}
 				
 			}catch (IndexOutOfBoundsException e) {
@@ -201,6 +289,7 @@ public class Analisador implements Simbolos {
 				new Token(PONTOEVIRGULA, ";"),
 				new Token(PONTOFINAL, "."),
 				new Token(PROCEDURE, "procedure"),
+				new Token(PROGRAM,"program"),
 				new Token(REAL, "real"),
 				new Token(SUBTRACAO, "-"),
 				new Token(THEN, "then"),
@@ -212,6 +301,16 @@ public class Analisador implements Simbolos {
 		
 		
 		return tokenAux;
+	}
+	
+	private Token getTokenPalavraReservada(String str) {
+		for (int i = 0; i < tabelaToken.length; i++) {
+			//System.out.println("int "+i+":"+ str + "| == |" +tabelaToken[i].getToken()+"|");
+			if (str.equalsIgnoreCase(tabelaToken[i].getToken())) {
+				return tabelaToken[i];
+			}
+		}
+		return null;
 	}
 
 	public void setTabela(ArrayList<TabelaSimbolo> tabela) {

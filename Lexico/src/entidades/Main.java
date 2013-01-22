@@ -9,6 +9,9 @@ public class Main {
 		// TODO Auto-generated method stub
 		Analisador analise = new Analisador("teste.txt");
 		try {
+			
+			
+			
 			analise.executa();
 			
 			System.out.println("TOKEN           CLASSIFICAÇÃO         	    LINHA");
@@ -19,7 +22,7 @@ public class Main {
 				if(analise.getTabela().get(i).getTipoToken() >=1 && analise.getTabela().get(i).getTipoToken() <=13){
 					b = new String("Palavras reservada");
 				}else if(analise.getTabela().get(i).getTipoToken() ==14 ){
-					b = new String("Identificadores");
+					b = new String("Identificador");
 				}else if(analise.getTabela().get(i).getTipoToken() ==15 ){
 					b = new String("Inteiro");
 				}else if(analise.getTabela().get(i).getTipoToken() ==16){
@@ -39,6 +42,7 @@ public class Main {
 				}
 				System.out.println(a + "	" + b + "	" + analise.getTabela().get(i).getNumLinha());
 			}
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

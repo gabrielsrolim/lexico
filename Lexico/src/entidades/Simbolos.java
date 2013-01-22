@@ -2,6 +2,8 @@ package entidades;
 
 public interface Simbolos {
 	
+	/*ERRO*/
+	public static final Integer ERRO = 0;
 	/*Palavras reservadas*/
 	public static final Integer PROGRAM	= 1;
 	public static final Integer VAR	= 2;
