@@ -33,7 +33,7 @@ public class Main {
 			for (int i = 0; i < analise.getTabela().size(); i++) {
 				String a = new String(analise.getTabela().get(i).getToken());
 				String b;
-				if(analise.getTabela().get(i).getTipoToken() >=1 && analise.getTabela().get(i).getTipoToken() <=13){
+				if(analise.getTabela().get(i).getTipoToken() >=1 && analise.getTabela().get(i).getTipoToken() <=13 || analise.getTabela().get(i).getTipoToken() == 38){
 					b = new String("Palavras reservada");
 				}else if(analise.getTabela().get(i).getTipoToken() ==14 ){
 					b = new String("Identificador");

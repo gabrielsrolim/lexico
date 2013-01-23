@@ -106,7 +106,8 @@ public class Analisador implements Simbolos {
 							}
 							ExibiErroSimbolo(ch);
 							//debug
-							//System.out.println(ch);
+							//System.out.println(ch);{ {}
+							/**/
 							
 							if(ch == '}'){
 							   break; //While(true)	
@@ -287,6 +288,7 @@ public class Analisador implements Simbolos {
 				new Token(DO, "do"),
 				new Token(DOISPONTOS, ":"),
 				new Token(ELSE, "else"),
+				new Token(FOR, "for"),
 				new Token(FECHA_COMENTARIO, "}"),
 				new Token(FECHA_PARENTESE, ")"),
 				new Token(IDENTIFICADOR, "Identificador"),
