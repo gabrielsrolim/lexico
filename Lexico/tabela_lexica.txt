@@ -46,6 +46,6 @@ final		Identificador	9
 :=		Atribuição	9
 NUMERO		Identificador	9
 +		Operador Aditivo	9
-1		Inteiro	9
+1.1		real	9
 end		Palavras reservada	10
 .		Delimitador	10

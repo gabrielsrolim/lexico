@@ -166,8 +166,9 @@ public class Analisador implements Simbolos {
 					tabela.add(new TabelaSimbolo(ADICAO, "+", linha));
 				}else if(ch == '-'){
 					tabela.add(new TabelaSimbolo(SUBTRACAO, "-", linha));
-				}else if((ch == 'o' || ch == 'O') && (bufArq.charAt(indiceProxSimbolo) == 'r' || bufArq.charAt(indiceProxSimbolo) == 'R')
-						 && (Character.isLetter(bufArq.charAt(indiceProxSimbolo+1)) == false) ){
+				}else if((ch == 'o' || ch == 'O') && 
+						(bufArq.charAt(indiceProxSimbolo) == 'r' || bufArq.charAt(indiceProxSimbolo) == 'R')
+						 && (Character.isWhitespace(bufArq.charAt(indiceProxSimbolo+1)) == true) ){
 					indiceProxSimbolo++;//Faz com que o or não seja lido mais da letra r.
 					tabela.add(new TabelaSimbolo(OPERADOR_OR, "or", linha));
 				}else if(ch =='*'){
@@ -177,13 +178,13 @@ public class Analisador implements Simbolos {
 				}else if((ch == 'a'||ch == 'A') && 
 						 (bufArq.charAt(indiceProxSimbolo) == 'n' || bufArq.charAt(indiceProxSimbolo) == 'N') &&
 						 (bufArq.charAt(indiceProxSimbolo+1) == 'd' ||bufArq.charAt(indiceProxSimbolo) == 'D' ) &&
-						 (Character.isLetter(bufArq.charAt(indiceProxSimbolo+2)) == false )){
+						 (Character.isWhitespace(bufArq.charAt(indiceProxSimbolo+2)) == true )){
 					indiceProxSimbolo++;
 					indiceProxSimbolo++;
 					//DEBUG
 					//System.out.println("DEBUG DE TESTE HEHE:" + bufArq.charAt(indiceProxSimbolo));
 					tabela.add(new TabelaSimbolo(OPERADOR_AND, "and", linha));
-				//Palavras Chaves	
+				//Palavras Chaves e identificado
 				}else if(Character.isLetter(ch)){
 					String str = ""+ch;
 					
@@ -231,7 +232,7 @@ public class Analisador implements Simbolos {
 						tabela.add(new TabelaSimbolo(NUMEROINTEIRO, new String(str),linha));
 					}
 				}else{
-					//tabela.add(new TabelaSimbolo(ERRO, "ERRO", linha));
+					tabela.add(new TabelaSimbolo(ERRO, "ERRO", linha));
 				}
 				
 			}catch (IndexOutOfBoundsException e) {

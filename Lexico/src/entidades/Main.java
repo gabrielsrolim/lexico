@@ -23,6 +23,8 @@ public class Main {
 			if(out!=null){
 				out.write("TOKEN           CLASSIFICAÇÃO         	    LINHA"+'\n');
 				out.write("--------------------------------------------------"+'\n');
+				System.out.println("TOKEN           CLASSIFICAÇÃO         	    LINHA");
+				System.out.println("--------------------------------------------------");
 			}else{
 				System.out.println("TOKEN           CLASSIFICAÇÃO         	    LINHA");
 				System.out.println("--------------------------------------------------");
@@ -54,6 +56,7 @@ public class Main {
 				}
 				if(out!=null){
 					out.write(a + "		" + b + "	" + analise.getTabela().get(i).getNumLinha()+"\n");
+					System.out.println(a + "		" + b + "	" + analise.getTabela().get(i).getNumLinha());
 				}else{
 					System.out.println(a + "		" + b + "	" + analise.getTabela().get(i).getNumLinha());
 				}
