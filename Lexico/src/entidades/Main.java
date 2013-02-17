@@ -14,7 +14,6 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		AnalisadorLexico analise = new AnalisadorLexico("teste.txt");
-		AnalisadorSintatico sintatico = new AnalisadorSintatico();
 		BufferedWriter out = new BufferedWriter(new FileWriter("tabela_lexica.txt"));
 		try {
 			
@@ -63,8 +62,8 @@ public class Main {
 				}
 			}//for
 			out.close();
-			
-			sintatico.executa(analise.getTabela());
+			AnalisadorSintatico sintatico = new AnalisadorSintatico(analise.getTabela());
+			sintatico.executa();
 			
 			
 		} catch (Exception e) {

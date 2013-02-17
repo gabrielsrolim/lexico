@@ -50,8 +50,10 @@ public interface Simbolos {
 	public static final Integer MULTIPLICACAO = 33;
 	public static final Integer DIVISAO = 34;
 	public static final Integer OPERADOR_AND = 35;
+	//Comentario
 	public static final Integer ABRE_COMENTARIO = 36;
 	public static final Integer FECHA_COMENTARIO = 37;
+	//Adicionais
 	public static final Integer FOR = 38;
 	
 
