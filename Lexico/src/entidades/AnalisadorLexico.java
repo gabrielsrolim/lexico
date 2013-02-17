@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 
-public class Analisador implements Simbolos {
+public class AnalisadorLexico implements Simbolos {
 	private ArrayList<TabelaSimbolo> tabela;
 	private Token tabelaToken[];
 	private String nomeArq;
@@ -13,7 +13,7 @@ public class Analisador implements Simbolos {
 	private int linha;
 	private StringBuffer bufArq;
 	
-	public Analisador(String nomeArq) {
+	public AnalisadorLexico(String nomeArq) {
 		super();
 		this.nomeArq = nomeArq;
 		//initTabelaPalavrasReservadas();

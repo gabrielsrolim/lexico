@@ -13,7 +13,8 @@ public class Main {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		Analisador analise = new Analisador("teste.txt");
+		AnalisadorLexico analise = new AnalisadorLexico("teste.txt");
+		AnalisadorSintatico sintatico = new AnalisadorSintatico();
 		BufferedWriter out = new BufferedWriter(new FileWriter("tabela_lexica.txt"));
 		try {
 			
@@ -23,8 +24,8 @@ public class Main {
 			if(out!=null){
 				out.write("TOKEN           CLASSIFICA플O         	    LINHA"+'\n');
 				out.write("--------------------------------------------------"+'\n');
-				System.out.println("TOKEN           CLASSIFICA플O         	    LINHA");
-				System.out.println("--------------------------------------------------");
+				//System.out.println("TOKEN           CLASSIFICA플O         	    LINHA");
+				//System.out.println("--------------------------------------------------");
 			}else{
 				System.out.println("TOKEN           CLASSIFICA플O         	    LINHA");
 				System.out.println("--------------------------------------------------");
@@ -56,12 +57,14 @@ public class Main {
 				}
 				if(out!=null){
 					out.write(a + "		" + b + "	" + analise.getTabela().get(i).getNumLinha()+"\n");
-					System.out.println(a + "		" + b + "	" + analise.getTabela().get(i).getNumLinha());
+					//System.out.println(a + "		" + b + "	" + analise.getTabela().get(i).getNumLinha());
 				}else{
 					System.out.println(a + "		" + b + "	" + analise.getTabela().get(i).getNumLinha());
 				}
 			}//for
 			out.close();
+			
+			sintatico.executa(analise.getTabela());
 			
 			
 		} catch (Exception e) {
