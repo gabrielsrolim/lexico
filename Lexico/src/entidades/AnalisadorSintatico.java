@@ -25,8 +25,8 @@ public class AnalisadorSintatico {
 	
 	
 	private void compararToken(String token){
-		System.out.println("token: "+token+ " Comparacao: "+ tabela.get(pos).getToken() );
-		System.out.println("tipo: "+ tabela.get(pos).getTipoToken() );
+		//System.out.println("token: "+token+ " Comparacao: "+ tabela.get(pos).getToken() );
+		//System.out.println("tipo: "+ tabela.get(pos).getTipoToken() );
 		if(tabela.get(pos).getToken().compareToIgnoreCase(token) == 0){
 			pos++;
 		}else{
@@ -37,8 +37,8 @@ public class AnalisadorSintatico {
 	}
 	
 	private void compararTipo(Integer tipo){
-		System.out.println("token: "+ tabela.get(pos).getToken() );
-		System.out.println("tipo: "+tipo+ " Comparacao Tipo: "+ tabela.get(pos).getTipoToken() );
+		//System.out.println("token: "+ tabela.get(pos).getToken() );
+		//System.out.println("tipo: "+tipo+ " Comparacao Tipo: "+ tabela.get(pos).getTipoToken() );
 		if(tabela.get(pos).getTipoToken() == tipo){
 			pos++;
 		}else{
@@ -48,12 +48,12 @@ public class AnalisadorSintatico {
 	}
 	
 	private void exibirErro(){
-		System.out.println("ERRO LINHA: " + tabela.get(pos).getNumLinha() + "----> Token: " + tabela.get(pos).getToken());
+		//System.out.println("ERRO LINHA: " + tabela.get(pos).getNumLinha() + "----> Token: " + tabela.get(pos).getToken());
 	}
 	
 	private void program(){
 		
-		System.out.println("program");
+		//System.out.println("program");
 		
 		compararToken("program");
 		compararTipo(Simbolos.IDENTIFICADOR);
@@ -72,7 +72,7 @@ public class AnalisadorSintatico {
 	}
 	
 	private void declaracoesDeSubprogramas(){
-		System.out.println("declaracoesDeSubprogramas");
+		//System.out.println("declaracoesDeSubprogramas");
 		if(tabela.get(pos).getToken().compareToIgnoreCase("procedure")==0){
 			declaracaoDeSubprograma();
 			compararToken(";");
@@ -81,7 +81,7 @@ public class AnalisadorSintatico {
 	}
 	
 	private void declaracaoDeSubprograma(){
-		System.out.println("declaracaoDeSubprograma");
+		//System.out.println("declaracaoDeSubprograma");
 		compararToken("procedure");
 		compararTipo(Simbolos.IDENTIFICADOR);
 		argumentos();
@@ -92,14 +92,14 @@ public class AnalisadorSintatico {
 	}
 	
 	private void comandoComposto(){
-		System.out.println("comandoComposto");
+		//System.out.println("comandoComposto");
 		compararToken("begin");
 		comandosOpcionais();
 		compararToken("end");
 	}
 	
 	private void comandosOpcionais(){
-		System.out.println("comandosOpcionais");
+		//System.out.println("comandosOpcionais");
 		if(tabela.get(pos).getTipoToken()==Simbolos.IDENTIFICADOR || tabela.get(pos).getToken().compareToIgnoreCase("begin")==0 
 			|| tabela.get(pos).getToken().compareToIgnoreCase("if")==0 || tabela.get(pos).getToken().compareToIgnoreCase("while")==0){
 			listaDeComandos();
@@ -107,13 +107,13 @@ public class AnalisadorSintatico {
 	}
 	
 	private void listaDeComandos(){
-		System.out.println("listaDeComandos");
+		//System.out.println("listaDeComandos");
 		comando();
 		listaDeComandos2();
 	}
 	
 	private void listaDeComandos2(){
-		System.out.println("listaDeComandos2");
+		//System.out.println("listaDeComandos2");
 		if(tabela.get(pos).getToken().compareToIgnoreCase(";")==0 ){
 			compararToken(";");
 			comando();
@@ -125,7 +125,7 @@ public class AnalisadorSintatico {
 	}
 	
 	private void comando(){
-		System.out.println("comando");
+		//System.out.println("comando");
 		if(tabela.get(pos).getTipoToken()==Simbolos.IDENTIFICADOR && tabela.get(pos+1).getToken().compareToIgnoreCase(":=")==0){
 			variavel();
 			compararToken(":=");
@@ -154,7 +154,7 @@ public class AnalisadorSintatico {
 	}
 	
 	private void ativacaoDeProcedimento(){
-		System.out.println("ativacaoDeProcedimento");
+		//System.out.println("ativacaoDeProcedimento");
 		compararTipo(Simbolos.IDENTIFICADOR);
 		compararToken("(");
 		listaDeExpressoes();
@@ -162,7 +162,7 @@ public class AnalisadorSintatico {
 	}
 	
 	private void parteElse(){
-		System.out.println("parteElse");
+		//System.out.println("parteElse");
 		if(tabela.get(pos).getToken().compareToIgnoreCase("else")==0){
 			compararToken("else");
 			comando();
@@ -173,13 +173,13 @@ public class AnalisadorSintatico {
 	}
 	
 	private void expressao(){
-		System.out.println("expressao");
+		//System.out.println("expressao");
 		aux();
 		expressao2();
 	}
 	
 	private void expressao2(){
-		System.out.println("expressao2");
+		//System.out.println("expressao2");
 		//Operadores aditivos
 		if(tabela.get(pos).getTipoToken()==Simbolos.ADICAO || tabela.get(pos).getTipoToken()==Simbolos.SUBTRACAO 
 				|| tabela.get(pos).getTipoToken()==Simbolos.OPERADOR_OR){
@@ -199,7 +199,7 @@ public class AnalisadorSintatico {
 	}
 	
 	private void operadorRelacional(){
-		System.out.println("operadorRelacional");
+		//System.out.println("operadorRelacional");
 		if(tabela.get(pos).getTipoToken()==Simbolos.IGUAL){
 			compararTipo(Simbolos.IGUAL);
 		}else if(tabela.get(pos).getTipoToken()==Simbolos.MENOR_QUE){
@@ -217,7 +217,7 @@ public class AnalisadorSintatico {
 	}
 	
 	private void operadorAditivo(){
-		System.out.println("operadorAditivo");
+		//System.out.println("operadorAditivo");
 		if(tabela.get(pos).getTipoToken()==Simbolos.ADICAO){
 			compararTipo(Simbolos.ADICAO);
 		}else if(tabela.get(pos).getTipoToken()==Simbolos.SUBTRACAO){
@@ -229,7 +229,7 @@ public class AnalisadorSintatico {
 	}
 	
 	private void aux(){
-		System.out.println("aux");
+		//System.out.println("aux");
 		if(tabela.get(pos).getToken().compareToIgnoreCase("-")==0){
 			compararToken("-");
 			termo();
@@ -242,13 +242,13 @@ public class AnalisadorSintatico {
 	}
 	
 	private void termo(){
-		System.out.println("termo");
+		//System.out.println("termo");
 		fator();
 		termo2();
 	}
 	
 	private void termo2(){
-		System.out.println("termo2");
+		//System.out.println("termo2");
 		//operadores multiplicativos
 		if(tabela.get(pos).getTipoToken()==Simbolos.MULTIPLICACAO || tabela.get(pos).getTipoToken()==Simbolos.DIVISAO 
 				|| tabela.get(pos).getTipoToken()==Simbolos.OPERADOR_AND){
@@ -259,7 +259,7 @@ public class AnalisadorSintatico {
 	}
 	
 	private void operadorMultiplicativo(){
-		System.out.println("operadorMultiplicativo");
+		//System.out.println("operadorMultiplicativo");
 		if(tabela.get(pos).getTipoToken()==Simbolos.MULTIPLICACAO){
 			compararTipo(Simbolos.MULTIPLICACAO);
 		}else if(tabela.get(pos).getTipoToken()==Simbolos.DIVISAO){
@@ -271,7 +271,7 @@ public class AnalisadorSintatico {
 	}
 	
 	private void fator(){
-		System.out.println("fator");
+		//System.out.println("fator");
 		if(tabela.get(pos).getTipoToken()==Simbolos.IDENTIFICADOR && tabela.get(pos+1).getToken().compareToIgnoreCase("(")!=0){
 			compararTipo(Simbolos.IDENTIFICADOR);
 		}else if(tabela.get(pos).getTipoToken()==Simbolos.IDENTIFICADOR && tabela.get(pos+1).getToken().compareToIgnoreCase("(")==0){
@@ -296,19 +296,19 @@ public class AnalisadorSintatico {
 			fator();
 		}else{
 			erro=true;
-			System.out.println("ERRO LINHA: " + tabela.get(pos).getNumLinha() + "Expressão invalida");
+			//System.out.println("ERRO LINHA: " + tabela.get(pos).getNumLinha() + "Expressão invalida");
 			pos++;
 		}
 	}
 	
 	private void listaDeExpressoes(){
-		System.out.println("listaDeExpressoes");
+		//System.out.println("listaDeExpressoes");
 		expressao();
 		listaDeExpressoes2();
 	}
 	
 	private void listaDeExpressoes2(){
-		System.out.println("listaDeExpressoes2");
+		//System.out.println("listaDeExpressoes2");
 		if(tabela.get(pos).getToken().compareToIgnoreCase(",")!=0){
 			compararToken(",");
 			expressao();
@@ -320,12 +320,12 @@ public class AnalisadorSintatico {
 	}
 	
 	private void variavel(){
-		System.out.println("variavel");
+		//System.out.println("variavel");
 		compararTipo(Simbolos.IDENTIFICADOR);
 	}
 	
 	private void argumentos(){
-		System.out.println("argumentos");
+		//System.out.println("argumentos");
 		if(tabela.get(pos).getToken().compareToIgnoreCase("(")==0)
 		{
 			compararToken("(");
@@ -339,7 +339,7 @@ public class AnalisadorSintatico {
 	
 	
 	private void listaDeParametros(){
-		System.out.println("listaDeParametros");
+		//System.out.println("listaDeParametros");
 		listaDeIdentificadores();
 		compararToken(":");
 		tiposDados();
@@ -347,7 +347,7 @@ public class AnalisadorSintatico {
 	}
 	
 	private void listaDeParametros2(){
-		System.out.println("listaDeParametros2");
+		//System.out.println("listaDeParametros2");
 		if(tabela.get(pos).getToken().compareToIgnoreCase(";")==0){
 			compararToken(";");
 			listaDeIdentificadores();
@@ -361,7 +361,7 @@ public class AnalisadorSintatico {
 	}
 	
 	private void declaracoesVariaveis(){
-		System.out.println("declaracoesVariaveis");
+		//System.out.println("declaracoesVariaveis");
 		if(tabela.get(pos).getToken().compareToIgnoreCase("var")==0){
 			compararToken("var");
 			listaDeclaracoesVariaveis();
@@ -372,7 +372,7 @@ public class AnalisadorSintatico {
 	}
 	
 	private void listaDeclaracoesVariaveis(){
-		System.out.println("listaDeclaracoesVariaveis");
+		//System.out.println("listaDeclaracoesVariaveis");
 		listaDeIdentificadores();
 		compararToken(":");
 		tiposDados();
@@ -381,7 +381,7 @@ public class AnalisadorSintatico {
 	}
 	
 	private void listaDeclaracoesVariaveis2(){
-		System.out.println("listaDeclaracoesVariaveis2");
+		//System.out.println("listaDeclaracoesVariaveis2");
 		if(tabela.get(pos).getTipoToken() ==Simbolos.IDENTIFICADOR){
 			listaDeIdentificadores();
 			compararToken(":");
@@ -396,13 +396,13 @@ public class AnalisadorSintatico {
 	
 	
 	private void listaDeIdentificadores(){
-		System.out.println("listaDeIdentificadores");
+		//System.out.println("listaDeIdentificadores");
 		compararTipo(Simbolos.IDENTIFICADOR);
 		listaDeIdentificadores2();
 	}
 	
 	private void listaDeIdentificadores2(){
-		System.out.println("listaDeIdentificadores2");
+		//System.out.println("listaDeIdentificadores2");
 		if(tabela.get(pos).getToken().compareToIgnoreCase(",")==0){
 			compararToken(",");
 			compararTipo(Simbolos.IDENTIFICADOR);
@@ -414,7 +414,7 @@ public class AnalisadorSintatico {
 	}
 	
 	private void tiposDados(){
-		System.out.println("tiposDados");
+		//System.out.println("tiposDados");
 		if(tabela.get(pos).getTipoToken()==Simbolos.INTEGER){
 			compararTipo(Simbolos.INTEGER);
 		}else if(tabela.get(pos).getTipoToken()==Simbolos.REAL){
@@ -423,207 +423,10 @@ public class AnalisadorSintatico {
 			compararTipo(Simbolos.BOOLEAN);
 		}else{
 			erro = true;
-			System.out.println("Erro na linha: " + tabela.get(pos).getNumLinha() + tabela.get(pos).getToken() + "Não é um tipo valido.");
+			//System.out.println("Erro na linha: " + tabela.get(pos).getNumLinha() + tabela.get(pos).getToken() + "Não é um tipo valido.");
 			pos++;
 		}
 	}
-	/*private void ExibirInteracao(Iterator<TabelaSimbolo> tabela_eterator){
-		TabelaSimbolo tabelaAux;
-		
-		try {
-			for(int i = 0;;i++){
-				tabelaAux = tabela_eterator.next();
-				System.out.println("Linha: "+tabelaAux.getNumLinha() + " Token: "+tabelaAux.getToken()+" Tipos token:" + tabelaAux.getTipoToken());
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("Terminou sintatico.");
-		}
-		
-		
-	}
-	
-	private void exibirErro(TabelaSimbolo tabela){
-		System.out.println("ERRO LINHA: " + tabela.getNumLinha() + "----> Token: " + tabela.getToken());
-	}
-	
-	private boolean compararToken(Iterator<TabelaSimbolo> tabela_eterator,String token){
-		TabelaSimbolo tabela;
-		tabela = tabela_eterator.next();
-		if(tabela.getToken().compareToIgnoreCase(token) == 0){
-			return true;
-		}else{
-			exibirErro(tabela);
-			erro = true;
-			return false;
-		}
-		
-	}
-	
-	private boolean compararTipo(Iterator<TabelaSimbolo> tabela_eterator,Integer tipo){
-		TabelaSimbolo tabela;
-		tabela = tabela_eterator.next();
-		if(tabela.getTipoToken() == tipo){
-			return true;
-		}else{
-			exibirErro(tabela);
-			erro = true;
-			return false;
-		}
-	}
-	
-	private boolean program2(Iterator<TabelaSimbolo> tabela_eterator){
-		try {
-			compararToken(tabela_eterator,"program");
-			compararTipo(tabela_eterator,Simbolos.IDENTIFICADOR);
-			compararToken(tabela_eterator,";");
-			
-			declaracoesVariaveis(tabela_eterator);
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("Terminou sintatico.");
-			return true;
-		}
-		
-		return true;
-	}
-	
-	
-	private boolean program(Iterator<TabelaSimbolo> tabela_eterator){
-		
-		try {
-			
-			if(compararToken(tabela_eterator,"program")){
-				if(compararTipo(tabela_eterator,Simbolos.IDENTIFICADOR)){
-					if(compararToken(tabela_eterator,";")){
-						if(declaracoesVariaveis(tabela_eterator)){
-							System.out.println("Até aqui OK!");
-						}else{
-							System.out.println("deu problema");
-						}
-					}else{
-						return false;
-					}
-				}else{
-					return false;
-				}
-			}else{
-				return false;
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("Terminou sintatico.");
-			return true;
-		}
-		
-		return true;
-		
-	}
-	
-	private boolean declaracoesVariaveis(Iterator<TabelaSimbolo> tabela_eterator){
-		
-		if(compararToken(tabela_eterator, "var")){
-			listaDeclaracoesVariaveis(tabela_eterator);
-		}else{
-			return false;
-		}
-		if(compararToken(tabela_eterator, "var")){
-			if(listaDeclaracoesVariaveis(tabela_eterator)){
-				return true;
-			}else{
-				return false;
-			}
-		}else{
-			return false;
-		}
-		
-		return false;
-	}
-	
-	private boolean listaDeclaracoesVariaveis(Iterator<TabelaSimbolo> tabela_eterator){
-		listaDeIdentificadores(tabela_eterator);
-		return false;
-		if(listaDeIdentificadores(tabela_eterator)){
-			if(compararToken(tabela_eterator, ":")){
-				if(IdentificarTipo(tabela_eterator)){
-					if(compararToken(tabela_eterator, ";")){
-						listaDeclaracoesVariaveis2(tabela_eterator);
-					}
-				}else{
-					return false;
-				}
-				
-			}else{
-				return false;
-			}
-			
-		}else{
-			return false;
-		}
-		return false;
-		
-	}
-	
-	private void listaDeclaracoesVariaveis2(Iterator<TabelaSimbolo> tabela_eterator){
-		if(listaDeIdentificadores(tabela_eterator)){
-			if(compararToken(tabela_eterator, ":")){
-				if(IdentificarTipo(tabela_eterator)){
-					if(compararToken(tabela_eterator, ";")){
-						listaDeclaracoesVariaveis2(tabela_eterator);
-					}
-				}else{
-					return;
-				}
-				
-			}else{
-				return;
-			}
-		}
-		
-		return;
-	}
-	
-	private boolean listaDeIdentificadores(Iterator<TabelaSimbolo> tabela_eterator){
-		compararTipo(tabela_eterator, Simbolos.IDENTIFICADOR);
-		listaDeIdentificadores2(tabela_eterator);
-		
-		if(compararTipo(tabela_eterator, Simbolos.IDENTIFICADOR)){
-			listaDeIdentificadores2(tabela_eterator);
-		}else{
-			return false;
-		}
-		return true;
-	}
-	
-	private void listaDeIdentificadores2(Iterator<TabelaSimbolo> tabela_eterator){
-		tabela_eterator.
-		
-		if(compararToken(tabela_eterator, ",")){
-			if(compararTipo(tabela_eterator, Simbolos.IDENTIFICADOR)){
-				listaDeIdentificadores2(tabela_eterator);
-			}else{
-				return;
-			}
-		}else{
-			return;
-		}
-		return;
-	}
-	
-	private boolean IdentificarTipo(Iterator<TabelaSimbolo> tabela_eterator){
-		TabelaSimbolo tabela;
-		tabela = tabela_eterator.next();
-		if(tabela.getTipoToken() == Simbolos.INTEGER){
-			return true;
-		}else if(tabela.getTipoToken() == Simbolos.REAL){
-			return true;
-		}else if(tabela.getTipoToken() == Simbolos.BOOLEAN){
-			return true;
-		}else{
-			exibirErro(tabela);
-			return false;
-		}
-	}*/
 	
 
 }
